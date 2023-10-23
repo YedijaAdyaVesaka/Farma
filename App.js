@@ -1,9 +1,46 @@
 import React, { useState } from 'react';
-import {ScrollView, StyleSheet,  Text, View, Image, ImageBackground, SafeAreaView, StatusBar, TextInput, TouchableOpacity} from 'react-native';
-import {Receipt21, Clock, Message, Save2, Notification, Like, Like1} from 'iconsax-react-native';
+import {ScrollView, StyleSheet,  Text, View, Image, ImageBackground, SafeAreaView, StatusBar, TextInput, TouchableOpacity, Settings} from 'react-native';
+import { Clock, Save2, Notification, Like1, Setting, Home2, Book, Bookmark2, Profile} from 'iconsax-react-native';
 import { fontType, colors } from './src/theme';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { ListHorizontal, Navbar } from './src/components';
+import {CategoryList, BlogList} from './data';
+
+const ItemCategory = ({item, onPress, color}) => {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={category.item}>
+        <Text style={{...category.title, color}}>{item.categoryName}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const FlatListCategory = () => {
+  const [selected, setSelected] = useState(1);
+  const renderItem = ({item}) => {
+    const color = item.id === selected ? colors.black() : colors.grey();
+    return (
+      <ItemCategory
+        item={item}
+        onPress={() => setSelected(item.id)}
+        color={color}
+      />
+    );
+  };
+  return (
+    <FlatList
+      data={CategoryList}
+      keyExtractor={item => item.id}
+      renderItem={item => renderItem({...item})}
+      ItemSeparatorComponent={() => <View style={{width: 10}} />}
+      contentContainerStyle={{paddingHorizontal: 24}}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+    />
+  );
+};
+
 
 // Home Bar
 export default function App() {
@@ -17,7 +54,7 @@ export default function App() {
           source={require('./src/assets/images/FARMA.png')}
           style={styles.centerImage}
         />
-        <FontAwesome5 name = "user" size={20} color={colors.white()}/>
+        <Setting color={colors.white(1)} variant="Linear" size={25}/>
          </View>
          
          
@@ -32,6 +69,26 @@ export default function App() {
         <FontAwesome5 name="search" size={15} color={colors.grey()} style={styles.searchIcon} />
         </View>
       <ListBlog />
+      
+       {/* Navbar */}
+      <View style={styles.navbarContainer}>
+        <TouchableOpacity style={styles.navbarItem}>
+          <Home2 color="rgb(22, 179, 179)" variant="Linear" size={24} />
+          <Text style={styles.navbarText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navbarItem}>
+          <Book color="rgb(22, 179, 179)" variant="Linear" size={24} />
+          <Text style={styles.navbarText}>Other</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navbarItem}>
+          <Bookmark2 color="rgb(22, 179, 179)" variant="Linear" size={24} />
+          <Text style={styles.navbarText}>History</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navbarItem}>
+          <Profile color="rgb(22, 179, 179)" variant="Linear" size={24} />
+          <Text style={styles.navbarText}>Profile</Text>
+        </TouchableOpacity>
+      </View>
       </View>
     );
   }
@@ -85,9 +142,28 @@ export default function App() {
       marginRight: 10,
     },
 
+    //Navbar
+    navbarContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      backgroundColor: 'white',
+      height: 60,
+      elevation: 5,
+    },
+    navbarItem: {
+      alignItems: 'center',
+      padding: 10,
+    },
+    navbarText: {
+      fontSize: 12,
+      color: 'rgb(0, 0, 0)',
+      marginTop: 1,
+    },
+
     title: {
       fontSize: 20,
-      fontFamily: fontType['Pns-Bold'],
+      fontFamily: fontType['Pjs-Bold'],
       color: colors.green(),
     },
     listCategory: {
@@ -117,10 +193,13 @@ export default function App() {
   
   
   const ListBlog = () => {
+    const horizontalData = BlogList.slice(0, 5);
+    const verticalData = BlogList.slice(5);
     return (
       <ScrollView style={{ marginBottom: 30 }}>
         <View style={styles.listBlog}>
-          <ScrollView
+          <ListHorizontal data={horizontalData} />
+          {/* <ScrollView
             showsHorizontalScrollIndicator={false}
             horizontal
             contentContainerStyle={{gap: 1}}>
@@ -129,17 +208,19 @@ export default function App() {
                 style={itemHorizontal.cardImage}
                 resizeMode="cover"
                 imageStyle={{borderRadius: 15}}
-                source={require('./src/assets/images/Obattablet.jpg')}>
+                source={{
+                    uri: 'https://images.pexels.com/photos/16053688/pexels-photo-16053688/free-photo-of-bottle-of-pharmaceutics-in-hands.jpeg?auto=compress&cs=tinysrgb&w=600',
+                  }}>
                 <View style={itemHorizontal.cardContent}>
                   <View style={itemHorizontal.cardInfo}>
                     <Text style={itemHorizontal.cardTitle}>
                     Top Vitamins for Interseasonal Period
                     </Text>
-                        <Text style={styles.readMoreText}>Baca Selengkapnya</Text>
+                    <Text style={itemHorizontal.cardText}>Baca Selengkapnya</Text>
                   </View>
                   <View>
                     <View style={itemVertical.cardIcon}>
-                      <Like1 color={colors.white()} variant="Linear" size={20} />
+                      <Like1 color={colors.white()} variant="Linear" size={25} />
                     </View>
                   </View>
                 </View>
@@ -150,17 +231,19 @@ export default function App() {
                 style={itemHorizontal.cardImage}
                 resizeMode="cover"
                 imageStyle={{borderRadius: 15}}
-                source={require('./src/assets/images/5Vitamin.jpg')}>
+                source={{
+                  uri: 'https://images.unsplash.com/photo-1585435557343-3b092031a831?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHZpdGFtaW58ZW58MHx8MHx8fDA%3D',
+                }}>
                 <View style={itemHorizontal.cardContent}>
                   <View style={itemHorizontal.cardInfo}>
                     <Text style={itemHorizontal.cardTitle}>
                     Avoid Medication Overuse
                     </Text>
-                    <Text style={styles.readMoreText}>Read More</Text>
+                    <Text style={itemHorizontal.cardText}>Baca Selengkapnya</Text>
                   </View>
                   <View>
                     <View style={itemVertical.cardIcon}>
-                      <Like1 color={colors.white()} variant="Linear" size={20} />
+                      <Like1 color={colors.white()} variant="Linear" size={25} />
                     </View>
                   </View>
                 </View>
@@ -171,17 +254,19 @@ export default function App() {
                 style={itemHorizontal.cardImage}
                 resizeMode="cover"
                 imageStyle={{borderRadius: 15}}
-                source={require('./src/assets/images/Sick1.jpg')}>
+                source={{
+                  uri: 'https://images.pexels.com/photos/3987152/pexels-photo-3987152.jpeg?auto=compress&cs=tinysrgb&w=600',
+                }}>
                 <View style={itemHorizontal.cardContent}>
                   <View style={itemHorizontal.cardInfo}>
                     <Text style={itemHorizontal.cardTitle}>
                     Paracetamol:Solution for Aches and Pains
                     </Text>
-                    <Text style={styles.readMoreText}>Baca Selengkapnya</Text>
+                    <Text style={itemHorizontal.cardText}>Baca Selengkapnya</Text>
                   </View>
                   <View>
                     <View style={itemVertical.cardIcon}>
-                      <Like1 color={colors.white()} variant="Linear" size={20} />
+                      <Like1 color={colors.white()} variant="Linear" size={25} />
                     </View>
                   </View>
                 </View>
@@ -192,7 +277,9 @@ export default function App() {
                 style={itemHorizontal.cardImage}
                 resizeMode="cover"
                 imageStyle={{borderRadius: 15}}
-                source={require('./src/assets/images/Skincare1.jpg')}>
+                source={{
+                  uri: 'https://images.pexels.com/photos/6663469/pexels-photo-6663469.jpeg?auto=compress&cs=tinysrgb&w=600',
+                }}>
                 <View style={itemHorizontal.cardContent}>
                   <View style={itemHorizontal.cardInfo}>
                     <Text style={itemHorizontal.cardTitle}>
@@ -202,13 +289,13 @@ export default function App() {
                   </View>
                   <View>
                     <View style={itemVertical.cardIcon}>
-                      <Like1 color={colors.white()} variant="Linear" size={20} />
+                      <Like1 color={colors.white()} variant="Linear" size={25} />
                     </View>
                   </View>
                 </View>
               </ImageBackground>
             </View>           
-          </ScrollView>
+          </ScrollView> */}
 
            {/* list menu bar obat */}
           <View style={styles.listCategory}>
@@ -218,7 +305,7 @@ export default function App() {
                 source={require('./src/assets/images/ObatPerawatan.png')} size={1}
                 style={{ width: 50, height: 50, resizeMode: 'contain' }}
                 />
-              <Text style={{...category.title, marginTop: 5}} >Obat</Text>
+              <Text style={{...category.title, marginTop: 5, color: colors.green()}} >Obat</Text>
             </View>
             <View style={category.item}>
               <Image
@@ -261,7 +348,9 @@ export default function App() {
             <View style={itemVertical.cardItem}>
               <Image
                 style={itemVertical.cardImage}
-                source={require('./src/assets/images/Paratusin.jpg')}
+                source={{
+                  uri: 'https://d2qjkwm11akmwu.cloudfront.net/products/869854_23-8-2022_7-58-32-1665761450.webp',
+                }}
               />
               <View style={itemVertical.cardContent}>
                 <View
@@ -295,7 +384,9 @@ export default function App() {
             <View style={itemVertical.cardItem}>
               <Image
                 style={itemVertical.cardImage}
-                source={require('./src/assets/images/Imboost.png')}
+                source={{
+                  uri: 'https://d2qjkwm11akmwu.cloudfront.net/products/506103_1-9-2023_14-33-56.webp',
+                }}
               />
               <View style={itemVertical.cardContent}>
                 <View
@@ -328,7 +419,9 @@ export default function App() {
             <View style={itemVertical.cardItem}>
             <Image
                 style={itemVertical.cardImage}
-                source={require('./src/assets/images/Parasol.jpg')}
+                source={{
+                  uri: 'https://d2qjkwm11akmwu.cloudfront.net/products/3940-1665770596.webp',
+                }}
               />
               <View style={itemVertical.cardContent}>
                 <View
@@ -362,7 +455,9 @@ export default function App() {
             <View style={itemVertical.cardItem}>
             <Image
                 style={itemVertical.cardImage}
-                source={require('./src/assets/images/Actifed.jpg')}
+                source={{
+                  uri: 'https://d2qjkwm11akmwu.cloudfront.net/products/846513_22-9-2021_10-13-39-1665760948.webp',
+                }}
               />
               <View style={itemVertical.cardContent}>
                 <View
@@ -414,16 +509,16 @@ export default function App() {
     cardCategory: {
       color: colors.green(),
       fontSize: 12,
-      fontFamily: fontType['Pns-SemiBold'],
+      fontFamily: fontType['Pjs-SemiBold'],
     },
     cardTitle: {
       fontSize: 14,
-      fontFamily: fontType['Pns-Bold'],
+      fontFamily: fontType['Pjs-Bold'],
       color: colors.black(),
     },
     cardText: {
       fontSize: 10,
-      fontFamily: fontType['Pns-Bold'],
+      fontFamily: fontType['Pjs-Bold'],
       color: colors.green(1),
     },
     cardImage: {
@@ -446,43 +541,44 @@ export default function App() {
       paddingVertical: 10,
     },
   });
-  const itemHorizontal = StyleSheet.create({
-    cardItem: {
-      width: 330,
-      marginLeft: 15,
-      marginRight: 15,
-    },
-    cardImage: {
-      width: '100%',
-      height: 200,
-      borderRadius: 5,
-    },
-    cardContent: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      padding: 15,
-    },
-    cardInfo: {
-      justifyContent: 'flex-end',
-      height: '100%',
-      gap: 10,
-      maxWidth: '60%',
-    },
-    cardTitle: {
-      fontFamily: fontType['Pns-Bold'],
-      fontSize: 14,
-      color: colors.white(),
-    },
-    cardText: {
-      fontSize: 10,
-      color: colors.white(),
-      fontFamily: fontType['Pns-Medium'],
-    },
-    cardIcon: {
-      backgroundColor: colors.white(0.33),
-      padding: 5,
-      borderColor: colors.white(),
-      borderWidth: 0.5,
-      borderRadius: 5,
-    },
-  });
+  
+  // const itemHorizontal = StyleSheet.create({
+  //   cardItem: {
+  //     width: 330,
+  //     marginLeft: 15,
+  //     marginRight: 15,
+  //   },
+  //   cardImage: {
+  //     width: '100%',
+  //     height: 200,
+  //     borderRadius: 5,
+  //   },
+  //   cardContent: {
+  //     flexDirection: 'row',
+  //     justifyContent: 'space-between',
+  //     padding: 15,
+  //   },
+  //   cardInfo: {
+  //     justifyContent: 'flex-end',
+  //     height: '100%',
+  //     gap: 10,
+  //     maxWidth: '60%',
+  //   },
+  //   cardTitle: {
+  //     fontFamily: fontType['Pjs-Bold'],
+  //     fontSize: 15,
+  //     color: colors.white(),
+  //   },
+  //   cardText: {
+  //     fontSize: 10,
+  //     color: colors.white(),
+  //     fontFamily: fontType['Pjs-Medium'],
+  //   },
+  //   cardIcon: {
+  //     backgroundColor: colors.white(0.33),
+  //     padding: 5,
+  //     borderColor: colors.white(),
+  //     borderWidth: 0.5,
+  //     borderRadius: 5,
+  //   },
+  // });

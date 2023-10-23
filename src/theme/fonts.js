@@ -1,11 +1,10 @@
 const fontType = {
-    'Pns-ExtraLight' : 'Poppins-ExtraLight',
-    'Pns-Light' : 'Poppins-Light',
-    'Pns-Regular' : 'Poppins-Regular',
-    'Pns-Medium' : 'Poppins-Medium',
-    'Pns-SemiBold' : 'Poppins-SemiBold',
-    'Pns-Bold' : 'Poppins-Bold',
-    'Pns-ExtraBold' : 'Poppins-ExtraBold',
-    'Pns-Thin' : 'Poppins-Thin',
+    'Pjs-ExtraLight' : 'PlusJakartaSans-ExtraLight',
+    'Pjs-Light' : 'PlusJakartaSans-Light',
+    'Pjs-Regular' : 'PlusJakartaSans-Regular',
+    'Pjs-Medium' : 'PlusJakartaSans-Medium',
+    'Pjs-SemiBold' : 'PlusJakartaSans-SemiBold',
+    'Pjs-Bold' : 'PlusJakartaSans-Bold',
+    'Pjs-ExtraBold' : 'PlusJakartaSans-ExtraBold',
 }
-export default fontType;
+export default fontType;    
