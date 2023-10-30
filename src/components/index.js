@@ -1,3 +1,5 @@
 import ListHorizontal from './ListHorizontal'
 import Navbar from './navbar'
-export { ListHorizontal, Navbar};
+import ItemFavorite from './itemFavorite'
+import ItemSmall from './ItemSmall'
+export { ListHorizontal, Navbar, ItemFavorite, ItemSmall};

@@ -31,9 +31,9 @@ import {
               <View style={itemHorizontal.cardIcon}>
                 <TouchableOpacity onPress={onPress}>
                 <Like1
-                color="rgb(214, 40, 40)"
+                color="rgb(255, 255, 255)"
                 variant={variant}
-                size={25}
+                size={30}
                 style={itemHorizontal.icon}
               />
                 </TouchableOpacity>
@@ -80,7 +80,8 @@ import {
   
   const itemHorizontal = StyleSheet.create({
     cardItem: {
-      width: 350,
+      width: 325,
+      marginLeft: 5,
     },
     cardImage: {
       width: '100%',
@@ -109,10 +110,8 @@ import {
       fontFamily: fontType['Pjs-Medium'],
     },
     cardIcon: {
-      backgroundColor: colors.white(0.33),
       padding: 5,
-      borderColor: colors.white(),
-      borderWidth: 0.5,
-      borderRadius: 5,
+      // marginHorizontal : 10,
+      marginTop : 130,
     },
   });
