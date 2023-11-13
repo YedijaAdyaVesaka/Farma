@@ -9,6 +9,7 @@ const Discover = () => {
     const recentBlog = BlogList.slice(5);
     return (
       <View style={styles.container}>
+        <StatusBar translucent = {false} backgroundColor={ colors.green()}/>
         <View style={styles.headerContainer}>
         <View style={styles.header}>
           <TouchableOpacity>

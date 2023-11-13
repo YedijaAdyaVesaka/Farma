@@ -60,12 +60,12 @@ export const CategoryList = [
     },
     {
       id: 5,
-      title: 'Paratusin Tablet',
+      title: 'Beware of using illegal face creams',
       category: 'Obat',
       image:
-        'https://d2qjkwm11akmwu.cloudfront.net/products/869854_23-8-2022_7-58-32-1665761450.webp',
-      text: '3x1 tablet/hari',
-      desc: 'Paratusin digunakan untuk meringankan gejala-gejala flu seperti demam, sakit kepala, hidung tersumbat dan bersin-bersin yang disertai batuk.',
+        'https://images.pexels.com/photos/4812658/pexels-photo-4812658.jpeg?auto=compress&cs=tinysrgb&w=600',
+      detail: 'Baca Selengkapnya',
+      // desc: 'Paratusin digunakan untuk meringankan gejala-gejala flu seperti demam, sakit kepala, hidung tersumbat dan bersin-bersin yang disertai batuk.',
     //   totalComments: 89,
     },
     {
@@ -76,6 +76,10 @@ export const CategoryList = [
         'https://d2qjkwm11akmwu.cloudfront.net/products/506103_1-9-2023_14-33-56.webp',
       text: '3x1 tablet/hari',
       desc: 'Produk suplemen kesehatan yang mengandung Echinacea purpurea herb dry extract, Black elderberry fruit dry extract, Zn Picolinate dalam bentuk kaplet salut selaput.',
+      detail: 'Komposisi : Echinacea 250 mg, Zinc Picolinate 10 mg',
+      dosis: 'Dosis : Dewasa 3 kali sehari 1 tablet',
+      indikasi:'Kontra Indikasi : Tidak boleh digunakan oleh penderita sklerosis multipel, penyakit leukemia, tuberkulosis, AIDS, dan penyakit autoimun.',
+      efek:'Efek Samping : Tidak boleh digunakan oleh penderita sklerosis multipel, penyakit leukemia, tuberkulosis, AIDS, dan penyakit autoimun.',
     //   totalComments: 89,
     },
     {
@@ -86,7 +90,11 @@ export const CategoryList = [
         'https://d2qjkwm11akmwu.cloudfront.net/products/3940-1665770596.webp',
       text: '30 menit sebelum beraktivitas',
       desc: 'Krim ini digunakan untuk melindungi kulit dari pengaruh buruk sinar matahari matahari sekaligus menjaga kelembapan kulit. Krim ini juga dapat digunakan sebagai alas bedak.',
-        // detail: 'Baca Selengkapnya',
+      detail: 'Komposisi : Octyl methoxycinnamate, Oxybenzone, Microtitanium dioxide, Tocopherol acetate, Aloe vera',
+      dosis: 'Dosis : Oleskan 30 menit sebelum terkena sinar matahari',
+      indikasi:'Kontra Indikasi : Hanya pemakaian luar. Oleskan produk suncreen pada kulit sebelum terpapar sinar UV. Gunakan kembali secara berulang untuk menjaga perlindungan.',
+      efek:'Efek Samping : Kemerahan atau gatal (hentikan penggunaan)',
+      // detail: 'Baca Selengkapnya',
     //   totalComments: 89,
     },
     {
@@ -97,7 +105,10 @@ export const CategoryList = [
         'https://d2qjkwm11akmwu.cloudfront.net/products/846513_22-9-2021_10-13-39-1665760948.webp',
       text: '2x1 Sendok/hari',
       desc: 'Obat batuk kering dan pilek dengan kandungan Dextromethorphan HBr, Pseudoephedrine HCl, dan Triprolidine HCl. ',
-
+      detail: 'Komposisi : Tiap 5 ml sirup mengandung: Dextromethorphan HBr 10 mg, Pseudoephedrine HCl 30 mg, Triprolidine HCl 1.25 mg',
+      dosis: 'Dosis : • Dewasa dan anak-anak di atas 12 tahun: 1 sendok takar (5 ml), 3 kali sehari • Anak-anak usia 6-12 tahun: 1/2 sendok takar (2,5 ml), 3 kali sehari • Tidak dianjurkan untuk anak di bawah 6 tahun',
+      indikasi:'Kontra Indikasi : Sensitif terhadap obat simpatomimetik lain (seperti efedrin, fenilpropanolamin), hipertensi berat. Sedang mendapat terapi MAOI dalam-dalam minggu terakhir. Tidak dianjurkan untuk anak di bawah 6 tahun.',
+      efek:'Efek Samping : Mengantuk, gangguan pencernaan, sakit kepala, gangguan psikomotorik, takikardi, aritmia, mulut kering, palpitasi, kesulitan berkemih',
     //   totalComments: 89,
     },
     {
@@ -108,7 +119,10 @@ export const CategoryList = [
         'https://d2qjkwm11akmwu.cloudfront.net/products/616675_26-9-2022_10-4-52-1665816774.webp',
       text: '2x1 Sendok/hari',
       desc: 'Suplemen dengan kandungan Vitamin C 500 mg yang digunakan untuk membantu memenuhi kebutuhan vitamin C dalam tubuh.',
-
+      detail: 'Komposisi : Setiap tablet mengandung: Vitamin C 500 mg',
+      dosis: 'Dosis : Sehari 1 kali 1 tablet',
+      indikasi:'Kontra Indikasi : Pasien dengan riwayat hipersensitivitas terhadap vitamin C atau komponen dari obat ini.',
+      efek:'Efek Samping : Pemakaian obat umumnya memiliki efek samping tertentu dan sesuai dengan masing-masing individu. Jika terjadi efek samping yang berlebih dan berbahaya, harap konsultasikan kepada tenaga medis.',
     //   totalComments: 89,
     },
     {
@@ -119,7 +133,10 @@ export const CategoryList = [
         'https://d2qjkwm11akmwu.cloudfront.net/products/175273_5-11-2020_14-55-46-1665779679.webp',
       text: '1 Gelas/Hari',
       desc: 'Obat dengan kandungan Natrium klorida, Kalium klorida, Trisodium sitrat dihidrat, Glukosa anhidrat dalam bentuk serbuk.',
-
+      detail: 'Komposisi : Tiap kantong 200 ml mengandung : - Natrium klorida 0.52 gram - Kalium klorida 0.3 gram - Trisodium sitrat dihidrat 0.58 gram - Glukosa anhidrat 2.7 gram',
+      dosis: 'Dosis : Dibawah 1 tahun : 3 jam pertama 1.5 gelas, selanjutnya 1/2 gelas tiap kali mencret. Anak 1 - 5 tahun: 3 jam pertama 3 gelas, selanjutnya 1 gelas tiap kali mencret. Anak 5 - 12 tahun : 3 jam pertama 6 gelas, selanjutnya 1.5 gelas tiap kali mencret. Anak lebih dari 12 tahun : 3 jam pertama 12 gelas, selanjutnya 2 gelas tiap kali mencret.',
+      indikasi:'Kontra Indikasi : Penderita gangguan fungsi ginjal, malabsorpsi glukosa, serta dehidrasi parah',
+      efek:'Efek Samping : Perut kembung, nyeri perut, hipernatremia',
     //   totalComments: 89,
     },
   ];

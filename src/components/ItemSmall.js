@@ -1,12 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {Save2, Clock, Message} from 'iconsax-react-native';
 import React from 'react';
 import { fontType, colors } from '../theme';
+import {useNavigation} from '@react-navigation/native';
 
 const ItemSmall = ({item}) => {
+  const navigation = useNavigation();
   return (
-    <View style={styles.cardItem}>
+    <TouchableOpacity style={styles.cardItem} onPress={() => navigation.navigate('BlogDetail', {blogId: item.id})}>
       <FastImage
         style={styles.cardImage}
         source={{
@@ -40,7 +42,7 @@ const ItemSmall = ({item}) => {
           <Text style={styles.cardText}>{item.desc}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 export default ItemSmall;

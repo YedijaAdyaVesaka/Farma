@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {ScrollView, StyleSheet, Text, View, TouchableOpacity, Image, StatusBar} from 'react-native';
 import {Edit, ArrowCircleLeft, InfoCircle, LogoutCurve, Setting2, MessageQuestion} from 'iconsax-react-native';
 import { fontType, colors } from '../../theme';
 import {ProfileData} from '../../../data';
@@ -7,6 +7,7 @@ import {ProfileData} from '../../../data';
 const Profile = () => {
     return (
       <View style={styles.container}>
+        <StatusBar translucent = {false} backgroundColor={ colors.green()}/>
         <View style={styles.header}>
           <TouchableOpacity>
             <ArrowCircleLeft color={'rgb(22, 179, 179)'} variant="Linear" size={28} />
@@ -64,9 +65,9 @@ const Profile = () => {
   },
     cardContainer: {
       flex: 1,
-      backgroundColor: 'rgba(255, 255, 255)',
-      borderRadius: 20,
-      margin: 6,
+      backgroundColor: 'rgba(22, 179, 179, 0.1)',
+      borderRadius: 10,
+      margin: 10,
     },
     header: {
       flexDirection: 'row',

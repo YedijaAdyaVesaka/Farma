@@ -10,10 +10,12 @@ import {
   import {fontType, colors} from '../theme';
   import FastImage from 'react-native-fast-image';
   import {Like1} from 'iconsax-react-native';
+  import {useNavigation} from '@react-navigation/native';
   
   const ItemHorizontal = ({item, variant, onPress}) => {
+    const navigation = useNavigation();
     return (
-      <View style={itemHorizontal.cardItem}>
+      <TouchableOpacity style={itemHorizontal.cardItem} onPress={() => navigation.navigate('BlogDetail', {blogId: item.id})}>
         <FastImage
           style={itemHorizontal.cardImage}
           source={{
@@ -41,7 +43,7 @@ import {
             </View>
           </View>
         </FastImage>
-      </View>
+      </TouchableOpacity>
     );
   };
 
