@@ -80,7 +80,8 @@ export const CategoryList = [
       dosis: 'Dosis : Dewasa 3 kali sehari 1 tablet',
       indikasi:'Kontra Indikasi : Tidak boleh digunakan oleh penderita sklerosis multipel, penyakit leukemia, tuberkulosis, AIDS, dan penyakit autoimun.',
       efek:'Efek Samping : Tidak boleh digunakan oleh penderita sklerosis multipel, penyakit leukemia, tuberkulosis, AIDS, dan penyakit autoimun.',
-    //   totalComments: 89,
+      registrasi:'No. Registrasi BPOM: SD021503871',
+      produk :'Manufaktur : Soho Industri Pharmasi',
     },
     {
       id: 7,
@@ -94,8 +95,8 @@ export const CategoryList = [
       dosis: 'Dosis : Oleskan 30 menit sebelum terkena sinar matahari',
       indikasi:'Kontra Indikasi : Hanya pemakaian luar. Oleskan produk suncreen pada kulit sebelum terpapar sinar UV. Gunakan kembali secara berulang untuk menjaga perlindungan.',
       efek:'Efek Samping : Kemerahan atau gatal (hentikan penggunaan)',
-      // detail: 'Baca Selengkapnya',
-    //   totalComments: 89,
+      registrasi:'No. Registrasi BPOM: NA18151700174',
+      produk :'Manufaktur : Surya Dermato Medica Laboratories',
     },
     {
       id: 8,
@@ -109,7 +110,8 @@ export const CategoryList = [
       dosis: 'Dosis : • Dewasa dan anak-anak di atas 12 tahun: 1 sendok takar (5 ml), 3 kali sehari • Anak-anak usia 6-12 tahun: 1/2 sendok takar (2,5 ml), 3 kali sehari • Tidak dianjurkan untuk anak di bawah 6 tahun',
       indikasi:'Kontra Indikasi : Sensitif terhadap obat simpatomimetik lain (seperti efedrin, fenilpropanolamin), hipertensi berat. Sedang mendapat terapi MAOI dalam-dalam minggu terakhir. Tidak dianjurkan untuk anak di bawah 6 tahun.',
       efek:'Efek Samping : Mengantuk, gangguan pencernaan, sakit kepala, gangguan psikomotorik, takikardi, aritmia, mulut kering, palpitasi, kesulitan berkemih',
-    //   totalComments: 89,
+      registrasi:'No. Registrasi BPOM: DTL1624504137A1',
+      produk :'Manufaktur : GlaxoSmithKline Indonesia',
     },
     {
       id: 9,
@@ -123,7 +125,8 @@ export const CategoryList = [
       dosis: 'Dosis : Sehari 1 kali 1 tablet',
       indikasi:'Kontra Indikasi : Pasien dengan riwayat hipersensitivitas terhadap vitamin C atau komponen dari obat ini.',
       efek:'Efek Samping : Pemakaian obat umumnya memiliki efek samping tertentu dan sesuai dengan masing-masing individu. Jika terjadi efek samping yang berlebih dan berbahaya, harap konsultasikan kepada tenaga medis.',
-    //   totalComments: 89,
+      registrasi:'No. Registrasi BPOM: SD201539101',
+      produk :'Manufaktur : Hexpharm Jaya',
     },
     {
       id: 10,
@@ -137,20 +140,14 @@ export const CategoryList = [
       dosis: 'Dosis : Dibawah 1 tahun : 3 jam pertama 1.5 gelas, selanjutnya 1/2 gelas tiap kali mencret. Anak 1 - 5 tahun: 3 jam pertama 3 gelas, selanjutnya 1 gelas tiap kali mencret. Anak 5 - 12 tahun : 3 jam pertama 6 gelas, selanjutnya 1.5 gelas tiap kali mencret. Anak lebih dari 12 tahun : 3 jam pertama 12 gelas, selanjutnya 2 gelas tiap kali mencret.',
       indikasi:'Kontra Indikasi : Penderita gangguan fungsi ginjal, malabsorpsi glukosa, serta dehidrasi parah',
       efek:'Efek Samping : Perut kembung, nyeri perut, hipernatremia',
-    //   totalComments: 89,
+      registrasi:'No. Registrasi BPOM: GBL9819920623A1',
+      produk :'Manufaktur : Generic Manufacturer',
     },
   ];
 
 
 
 
-export const navbar = [
-    {
-      id: 1,
-      icon: 'Home2',
-      title: 'Home',
-    },
-  ];
 
   export const ProfileData = {
     profilePict: require('./src/assets/images/vee.jpg'),

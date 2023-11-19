@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, ScrollView, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, Text, View, ScrollView, TouchableOpacity,  Animated} from 'react-native';
+import React, {useState, useRef} from 'react';
 import {ArrowLeft, Like1, Receipt21, Message, Share, More2} from 'iconsax-react-native';
 import {useNavigation} from '@react-navigation/native';
 import {BlogList} from '../../../data';
@@ -8,6 +8,13 @@ import { fontType, colors } from '../../theme';
 
 
 const BlogDetail = ({route}) => {
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const diffClampY = Animated.diffClamp(scrollY, 0, 60);
+  const headerY = diffClampY.interpolate({
+    inputRange: [0, 60],
+    outputRange: [0, -60],
+  });
+
   const {blogId} = route.params;
   const [iconStates, setIconStates] = useState({
     liked: {variant: 'Linear', color: colors.grey(0.6)},
@@ -28,7 +35,7 @@ const BlogDetail = ({route}) => {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <Animated.View style={[styles.header, {transform:[{translateY:headerY}]}]}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <ArrowLeft
             color={colors.green(0.6)}
@@ -44,9 +51,13 @@ const BlogDetail = ({route}) => {
             style={{transform: [{rotate: '90deg'}]}}
           />
         </View>
-      </View>
-      <ScrollView
+      </Animated.View>
+      <Animated.ScrollView
         showsVerticalScrollIndicator={false}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
         contentContainerStyle={{
           paddingHorizontal: 24,
           paddingTop: 62,
@@ -75,7 +86,9 @@ const BlogDetail = ({route}) => {
         <Text style={styles.detail}>{selectedBlog.dosis}</Text>
         <Text style={styles.detail}>{selectedBlog.indikasi}</Text>
         <Text style={styles.detail}>{selectedBlog.efek}</Text>
-      </ScrollView>
+        <Text style={styles.detail}>{selectedBlog.registrasi}</Text>
+        <Text style={styles.detail}>{selectedBlog.produk}</Text>
+      </Animated.ScrollView>
       {/* <View style={styles.bottomBar}>
         <View style={{flexDirection:'row', gap:5, alignItems:'center'}}>
           <TouchableOpacity onPress={() => toggleIcon('liked')}>
