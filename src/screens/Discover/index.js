@@ -1,16 +1,21 @@
-import {StyleSheet, Text, View, ScrollView, FlatList, StatusBar, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, FlatList, StatusBar, Image, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import React from 'react';
 import {BlogList} from '../../../data';
 import {ItemSmall} from '../../components'; 
-import {SearchNormal1, Save2, Clock, ArrowCircleLeft} from 'iconsax-react-native';
+import {SearchNormal1, Save2, Clock, ArrowCircleLeft, Add} from 'iconsax-react-native';
 import { fontType, colors } from '../../theme';
+import { useNavigation } from "@react-navigation/native";
+
 
 const Discover = () => {
+    const navigation = useNavigation();
+
     const recentBlog = BlogList.slice(5);
     return (
       <View style={styles.container}>
         <StatusBar translucent = {false} backgroundColor={ colors.green()}/>
         <View style={styles.headerContainer}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate("SearchPage")}>
         <View style={styles.header}>
           <TouchableOpacity>
             <ArrowCircleLeft color={'rgb(22, 179, 179)'} variant="Linear" size={28} />
@@ -20,6 +25,7 @@ const Discover = () => {
             <Text style={styles.placeholder}>Search</Text>
           </View>
         </View>
+        </TouchableWithoutFeedback>
         <View>
 
         </View>
@@ -31,6 +37,11 @@ const Discover = () => {
             ))}
           </View>
         </ScrollView>
+        <TouchableOpacity
+            style={styles.floatingButton}
+            onPress={() => navigation.navigate("AddBlog")}>
+            <Add color={colors.white()} variant="Linear" size={20} />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -123,5 +134,22 @@ const Discover = () => {
     paddingLeft: 15,
     flex: 1,
     paddingVertical: 10,
+  },
+  floatingButton: {
+    backgroundColor: colors.green(),
+    padding: 15,
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
+    borderRadius: 10,
+    shadowColor: colors.blue(),
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
 });

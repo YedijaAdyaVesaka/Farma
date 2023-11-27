@@ -83,11 +83,11 @@ const BlogDetail = ({route}) => {
         <Text style={styles.title}>{selectedBlog.title}</Text>
         <Text style={styles.content}>{selectedBlog.desc}</Text>
         <Text style={styles.detail}>{selectedBlog.detail}</Text>
-        <Text style={styles.detail}>{selectedBlog.dosis}</Text>
+        {/* <Text style={styles.detail}>{selectedBlog.dosis}</Text>
         <Text style={styles.detail}>{selectedBlog.indikasi}</Text>
         <Text style={styles.detail}>{selectedBlog.efek}</Text>
         <Text style={styles.detail}>{selectedBlog.registrasi}</Text>
-        <Text style={styles.detail}>{selectedBlog.produk}</Text>
+        <Text style={styles.detail}>{selectedBlog.produk}</Text> */}
       </Animated.ScrollView>
       {/* <View style={styles.bottomBar}>
         <View style={{flexDirection:'row', gap:5, alignItems:'center'}}>
