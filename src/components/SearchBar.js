@@ -45,19 +45,19 @@ import {
           }}
         >
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <ArrowLeft color={colors.grey(0.6)} variant="Linear" size={24} />
+            <ArrowLeft color={colors.green(0.6)} variant="Linear" size={24} />
           </TouchableOpacity>
         </Animated.View>
         <View style={styles.bar}>
           <SearchNormal1
             size={18}
-            color={searchPhrase ? colors.black() : colors.grey(0.5)}
+            color={searchPhrase ? colors.black() : colors.white()}
             variant="Linear"
           />
           <TextInput
             style={styles.textinput}
             placeholder="Search"
-            placeholderTextColor={colors.grey(0.5)}
+            placeholderTextColor={colors.white()}
             value={searchPhrase}
             onChangeText={setSearchPhrase}
             borderWidth={0}
@@ -93,14 +93,14 @@ import {
       padding: 10,
       gap: 10,
       alignItems: "center",
-      backgroundColor: colors.grey(0.05),
+      backgroundColor: colors.green(0.5),
       borderRadius: 10,
       flex: 1,
     },
     textinput: {
       fontSize: 14,
       fontFamily: fontType["Pjs-Medium"],
-      color: colors.black(),
+      color: colors.white(),
       lineHeight: 18,
       padding: 0,
       flex: 1,

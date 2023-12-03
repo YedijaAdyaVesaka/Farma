@@ -1,16 +1,47 @@
-import {StyleSheet, Text, View, ScrollView, FlatList, StatusBar, Image, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, ScrollView, FlatList, StatusBar, Image, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, RefreshControl} from 'react-native';
+import React, { useState, useCallback} from 'react';
 import {BlogList} from '../../../data';
+import FastImage from 'react-native-fast-image';
 import {ItemSmall} from '../../components'; 
 import {SearchNormal1, Save2, Clock, ArrowCircleLeft, Add} from 'iconsax-react-native';
 import { fontType, colors } from '../../theme';
-import { useNavigation } from "@react-navigation/native";
-
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import axios from 'axios';
 
 const Discover = () => {
     const navigation = useNavigation();
 
     const recentBlog = BlogList.slice(5);
+
+    const [loading, setLoading] = useState(true);
+    const [blogData, setBlogData] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+    const getDataBlog = async () => {
+      try {
+        const response = await axios.get(
+          'https://656ac127dac3630cf727450d.mockapi.io/farma/blog',
+        );
+        setBlogData(response.data);
+        setLoading(false)
+      } catch (error) {
+          console.error(error);
+      }
+    };
+  
+    const onRefresh = useCallback(() => {
+      setRefreshing(true);
+      setTimeout(() => {
+        getDataBlog()
+        setRefreshing(false);
+      }, 1500);
+    }, []);
+  
+    useFocusEffect(
+      useCallback(() => {
+        getDataBlog();
+      }, [])
+    );
+
     return (
       <View style={styles.container}>
         <StatusBar translucent = {false} backgroundColor={ colors.green()}/>
@@ -30,11 +61,23 @@ const Discover = () => {
 
         </View>
         </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          gap: 10,
+          paddingVertical: 20,
+        }} refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
           <View style={styles.listCard}>
-            {recentBlog.map((item, index) => (
+            {loading ? (
+              <ActivityIndicator size={'large'} color={colors.blue()} />
+            ) : (
+              blogData.map((item, index) => <ItemSmall item={item} key={index} />)
+            )}
+            {/* {recentBlog.map((item, index) => (
               <ItemSmall item={item} key={index} />
-            ))}
+            ))} */}
           </View>
         </ScrollView>
         <TouchableOpacity
@@ -50,7 +93,7 @@ const Discover = () => {
 
  const styles = StyleSheet.create({
   listCard: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 15,
     paddingBottom: 10,
     paddingTop :10,
     gap: 10,
@@ -58,6 +101,11 @@ const Discover = () => {
   container: {
     flex: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.96)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
 
   headerContainer: {
@@ -69,6 +117,7 @@ const Discover = () => {
   header: {
     paddingHorizontal: 15,
     gap: 30,
+    justifyContent: 'flex-end',
     flexDirection: 'row',
     alignItems: 'center',
     height: 52,

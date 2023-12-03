@@ -5,4 +5,5 @@ import Favorite from "./Favorite";
 import Profile from "./Profile";
 import Search from "./Search";
 import AddBlogForm from "./AddBlogForm";
-export {Home, Discover,BlogDetail, Favorite, Profile, Search, AddBlogForm}
+import EditBlogForm from "./EditBlogForm";
+export {Home, Discover,BlogDetail, Favorite, Profile, Search, AddBlogForm,EditBlogForm}
