@@ -5,15 +5,18 @@ import {ArrowLeft, Like1, Receipt21, Message, Share, More2} from 'iconsax-react-
 import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {fontType, colors} from '../../theme';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import {formatNumber} from '../../utils/formatNumber';
 import {formatDate} from '../../utils/formatDate';
-import axios from 'axios';
+// import axios from 'axios';
 import ActionSheet from 'react-native-actions-sheet';
 
 
 
 const BlogDetail = ({route}) => {
   const {blogId} = route.params;
+  const navigation = useNavigation();
   const [iconStates, setIconStates] = useState({
     liked: {variant: 'Linear', color: colors.grey(0.6)},
     // bookmarked: {variant: 'Linear', color: colors.grey(0.6)},
@@ -32,37 +35,48 @@ const BlogDetail = ({route}) => {
   };
 
   useEffect(() => {
-    getBlogById();
+    const subscriber = firestore()
+      .collection('blog')
+      .doc(blogId)
+      .onSnapshot(documentSnapshot => {
+        const blogData = documentSnapshot.data();
+        if (blogData) {
+          console.log('Blog data: ', blogData);
+          setSelectedBlog(blogData);
+        } else {
+          console.log(`Blog with ID ${blogId} not found.`);
+        }
+      });
+    setLoading(false);
+    return () => subscriber();
   }, [blogId]);
-
-  const getBlogById = async () => {
+  const navigateEdit = () => {
+    closeActionSheet();
+    navigation.navigate('EditBlog', {blogId});
+  };
+  const handleDelete = async () => {
+    setLoading(true);
     try {
-      const response = await axios.get(
-        `https://656ac127dac3630cf727450d.mockapi.io/farma/blog/${blogId}`,
-      );
-      setSelectedBlog(response.data);
-      setLoading(false);
+      await firestore()
+        .collection('blog')
+        .doc(blogId)
+        .delete()
+        .then(() => {
+          console.log('Blog deleted!');
+        });
+      if (selectedBlog?.image) {
+        const imageRef = storage().refFromURL(selectedBlog?.image);
+        await imageRef.delete();
+      }
+      console.log('Blog deleted!');
+      closeActionSheet();
+      setSelectedBlog(null);
+      setLoading(false)
+      navigation.navigate('Discover');
     } catch (error) {
       console.error(error);
     }
   };
-
-  const navigateEdit = () => {
-    closeActionSheet()
-    navigation.navigate('EditBlog', {blogId})
-  }
-  const handleDelete = async () => {
-   await axios.delete(`https://656ac127dac3630cf727450d.mockapi.io/farma/blog/${blogId}`)
-      .then(() => {
-        closeActionSheet()
-        navigation.navigate('Discover');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  const navigation = useNavigation();
   const scrollY = useRef(new Animated.Value(0)).current;
   const diffClampY = Animated.diffClamp(scrollY, 0, 52);
   const headerY = diffClampY.interpolate({
@@ -91,13 +105,13 @@ const BlogDetail = ({route}) => {
       <Animated.View
         style={[styles.header, {transform: [{translateY: headerY}]}]}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <ArrowLeft color={colors.green(0.6)} variant="Linear" size={24} />
+          <ArrowLeft color={colors.grey(0.6)} variant="Linear" size={24} />
         </TouchableOpacity>
         <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
-          <Share color={colors.green(0.6)} variant="Linear" size={24} />
+          <Share color={colors.grey(0.6)} variant="Linear" size={24} />
           <TouchableOpacity onPress={openActionSheet}>
             <More2
-              color={colors.green(0.6)}
+              color={colors.grey(0.6)}
               variant="Linear"
               style={{transform: [{rotate: '90deg'}]}}
             />
@@ -128,17 +142,17 @@ const BlogDetail = ({route}) => {
               priority: FastImage.priority.high,
             }}
             resizeMode={FastImage.resizeMode.cover}></FastImage>
-          {/* <View
+          <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginTop: 15,
             }}>
-            <Text style={styles.category}>{selectedBlog?.category.name}</Text>
+            {/* <Text style={styles.category}>{selectedBlog?.category.name}</Text>
             <Text style={styles.date}>
               {formatDate(selectedBlog?.createdAt)}
-            </Text>
-          </View> */}
+            </Text> */}
+          </View>
           <Text style={styles.title}>{selectedBlog?.title}</Text>
           <Text style={styles.content}>{selectedBlog?.content}</Text>
         </Animated.ScrollView>
@@ -188,8 +202,7 @@ const BlogDetail = ({route}) => {
             alignItems: 'center',
             paddingVertical: 15,
           }}
-          onPress={navigateEdit}
-          >
+          onPress={navigateEdit}>
           <Text
             style={{
               fontFamily: fontType['Pjs-Medium'],

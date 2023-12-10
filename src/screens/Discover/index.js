@@ -1,12 +1,13 @@
 import {StyleSheet, Text, View, ScrollView, FlatList, StatusBar, Image, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, RefreshControl} from 'react-native';
-import React, { useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {BlogList} from '../../../data';
 import FastImage from 'react-native-fast-image';
 import {ItemSmall} from '../../components'; 
 import {SearchNormal1, Save2, Clock, ArrowCircleLeft, Add} from 'iconsax-react-native';
 import { fontType, colors } from '../../theme';
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import axios from 'axios';
+import { useNavigation } from "@react-navigation/native";
+import firestore from '@react-native-firebase/firestore';
+// import axios from 'axios';
 
 const Discover = () => {
     const navigation = useNavigation();
@@ -16,31 +17,58 @@ const Discover = () => {
     const [loading, setLoading] = useState(true);
     const [blogData, setBlogData] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-    const getDataBlog = async () => {
-      try {
-        const response = await axios.get(
-          'https://656ac127dac3630cf727450d.mockapi.io/farma/blog',
-        );
-        setBlogData(response.data);
-        setLoading(false)
-      } catch (error) {
-          console.error(error);
-      }
-    };
+    // const getDataBlog = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       'https://656ac127dac3630cf727450d.mockapi.io/farma/blog',
+    //     );
+    //     setBlogData(response.data);
+    //     setLoading(false)
+    //   } catch (error) {
+    //       console.error(error);
+    //   }
+    // };
+    useEffect(() => {
+      const subscriber = firestore()
+        .collection('blog')
+        .onSnapshot(querySnapshot => {
+          const blogs = [];
+          querySnapshot.forEach(documentSnapshot => {
+            blogs.push({
+              ...documentSnapshot.data(),
+              id: documentSnapshot.id,
+            });
+          });
+          setBlogData(blogs);
+          setLoading(false);
+        });
+      return () => subscriber();
+    }, []);
   
     const onRefresh = useCallback(() => {
       setRefreshing(true);
       setTimeout(() => {
-        getDataBlog()
+        firestore()
+          .collection('blog')
+          .onSnapshot(querySnapshot => {
+            const blogs = [];
+            querySnapshot.forEach(documentSnapshot => {
+              blogs.push({
+                ...documentSnapshot.data(),
+                id: documentSnapshot.id,
+              });
+            });
+            setBlogData(blogs);
+          });
         setRefreshing(false);
       }, 1500);
     }, []);
   
-    useFocusEffect(
-      useCallback(() => {
-        getDataBlog();
-      }, [])
-    );
+    // useFocusEffect(
+    //   useCallback(() => {
+    //     getDataBlog();
+    //   }, [])
+    // );
 
     return (
       <View style={styles.container}>
