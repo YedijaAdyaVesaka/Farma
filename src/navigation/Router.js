@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Discover, Profile, BlogDetail, Search, AddBlogForm, EditBlogForm} from '../screens';
+import {Home, Discover, Profile, BlogDetail, Search, AddBlogForm, EditBlogForm, SplashScreen, Login, Register} from '../screens';
 import {Home2, Notepad2, Profile2User} from 'iconsax-react-native'; 
 import { fontType, colors } from '../theme';
 
@@ -55,21 +55,7 @@ function MainApp() {
           headerShown: false,
         }}
       />
-      {/* <Tab.Screen
-        name="Bookmark"
-        component={Bookmark}
-        options={{
-          tabBarLabel: 'Bookmark',
-          tabBarIcon: ({focused, color}) => (
-            <Receipt21
-              color={color}
-              variant={focused ? 'Bold' : 'Linear'}
-              size={24}
-            />
-          ),
-          headerShown: false,
-        }}
-      /> */}
+
       <Tab.Screen
         name="Profile"
         component={Profile}
@@ -90,7 +76,22 @@ function MainApp() {
 }
 const Router = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="SplashScreen">
+      <Stack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="MainApp"
         component={MainApp}

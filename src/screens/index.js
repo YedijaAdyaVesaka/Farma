@@ -6,4 +6,7 @@ import Profile from "./Profile";
 import Search from "./Search";
 import AddBlogForm from "./AddBlogForm";
 import EditBlogForm from "./EditBlogForm";
-export {Home, Discover,BlogDetail, Favorite, Profile, Search, AddBlogForm,EditBlogForm}
+import Login from "./Login";
+import Register from "./Register";
+import SplashScreen from "./SplashScreen";
+export {Home, Discover,BlogDetail, Favorite, Profile, Search, AddBlogForm,EditBlogForm,Login, Register, SplashScreen}

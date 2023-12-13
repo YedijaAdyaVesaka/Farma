@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
-import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator,} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator,KeyboardAvoidingView} from 'react-native';
 import {ArrowLeft, Add} from 'iconsax-react-native';
 import {useNavigation} from '@react-navigation/native';
 import {fontType, colors} from '../../theme';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 // import axios from 'axios';
 
 const AddBlogForm = () => {
@@ -24,22 +25,11 @@ const AddBlogForm = () => {
         console.log(error);
       });
   };
-//   const dataCategory = [
-//     { id: 1, name: "Food" },
-//     { id: 2, name: "Sports" },
-//     { id: 3, name: "Technology" },
-//     { id: 4, name: "Fashion" },
-//     { id: 5, name: "Health" },
-//     { id: 6, name: "Lifestyle" },
-//     { id: 7, name: "Music" },
-//     { id: 8, name: "Car" },
-//   ];
+
   const [blogData, setBlogData] = useState({
     title: "",
     content: "",
-    // category: {},
-    // totalLikes: 0,
-    // totalComments: 0,
+
   });
   const handleChange = (key, value) => {
     setBlogData({
@@ -63,6 +53,7 @@ const AddBlogForm = () => {
 
     setLoading(true);
     try {
+      const authorId = auth().currentUser.uid;
       await reference.putFile(image);
       const url = await reference.getDownloadURL();
       await firestore().collection('blog').add({
@@ -70,9 +61,9 @@ const AddBlogForm = () => {
         // category: blogData.category,
         image: url,
         content: blogData.content,
-        // totalComments: blogData.totalComments,
-        // totalLikes: blogData.totalLikes,
+
         createdAt: new Date(),
+        authorId
       });
       setLoading(false);
       console.log('Blog added!');
@@ -82,6 +73,10 @@ const AddBlogForm = () => {
     }
   };
   return (
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      enabled>
     <View style={styles.container}>
     <View style={styles.header}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -204,10 +199,11 @@ const AddBlogForm = () => {
     </View>
     {loading && (
       <View style={styles.loadingOverlay}>
-        <ActivityIndicator size="large" color={colors.blue()} />
+        <ActivityIndicator size="large" color={colors.green()} />
       </View>
     )}
   </View>
+  </KeyboardAvoidingView>
   );
 };
 
